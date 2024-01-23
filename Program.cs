@@ -1,6 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
-using Orange_Portfolio_BackEnd.Data;
+using Orange_Portfolio_BackEnd.Data.Context;
 using Orange_Portfolio_BackEnd.Models.Interfaces;
 using Orange_Portfolio_BackEnd.Repositories;
 
