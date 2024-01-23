@@ -40,7 +40,7 @@ Abaixo será enumerado os principais types descritos na documentação do Angula
   </thead>
  <tbody>
       <td>
-        <code>git commit -m " docs: Atualização do README"</code>
+        <code>git commit -m "docs: Atualização do README"</code>
       </td>
       <td>docs: Atualização do README</td>
     </tr>
