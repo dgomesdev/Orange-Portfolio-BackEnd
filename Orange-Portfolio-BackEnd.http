@@ -1,0 +1,6 @@
+@Orange_Portfolio_BackEnd_HostAddress = http://localhost:5262
+
+GET {{Orange_Portfolio_BackEnd_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
