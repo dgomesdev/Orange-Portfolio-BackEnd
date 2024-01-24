@@ -4,45 +4,45 @@ using Orange_Portfolio_BackEnd.Models.Interfaces;
 
 namespace Orange_Portfolio_BackEnd.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class TagRepository : ITagRepository
     {
         private readonly Context _db;
 
-        public UserRepository(Context db)
+        public TagRepository(Context db)
         {
             _db = db;
         }
 
-        public List<User> Get()
+        public List<Tag> Get()
         {
-            return _db.Users.ToList();
+            return _db.Tags.ToList();
         }
-        public User Get(int id)
+        public Tag Get(int id)
         {
-            return _db.Users.Find(id)!;
+            return _db.Tags.Find(id)!;
         }
-        public void Add(User user)
+        public void Add(Tag tag)
         {
-            _db.Users.Add(user);
+            _db.Tags.Add(tag);
             _db.SaveChanges();
         }
-        public void Update(User user)
+        public void Update(Tag tag)
         {
-            _db.Users.Update(user);
+            _db.Tags.Update(tag);
             _db.SaveChanges();
         }
         public void Delete(int id)
         {
-            _db.Users.Remove(Get(id));
+            _db.Tags.Remove(Get(id));
             _db.SaveChanges();
         }
 
-        public ICollection<User> GetAll()
+        public ICollection<Tag> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public User GetById(int id)
+        public Tag GetById(int id)
         {
             throw new NotImplementedException();
         }

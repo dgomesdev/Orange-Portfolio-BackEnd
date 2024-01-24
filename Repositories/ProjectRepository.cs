@@ -4,45 +4,45 @@ using Orange_Portfolio_BackEnd.Models.Interfaces;
 
 namespace Orange_Portfolio_BackEnd.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class ProjectRepository : IProjectRepository 
     {
         private readonly Context _db;
 
-        public UserRepository(Context db)
+        public ProjectRepository(Context db)
         {
             _db = db;
         }
 
-        public List<User> Get()
+        public List<Project> Get()
         {
-            return _db.Users.ToList();
+            return _db.Projects.ToList();
         }
-        public User Get(int id)
+        public Project Get(int id)
         {
-            return _db.Users.Find(id)!;
+            return _db.Projects.Find(id)!;
         }
-        public void Add(User user)
+        public void Add(Project project)
         {
-            _db.Users.Add(user);
+            _db.Projects.Add(project);
             _db.SaveChanges();
         }
-        public void Update(User user)
+        public void Update(Project project)
         {
-            _db.Users.Update(user);
+            _db.Projects.Update(project);
             _db.SaveChanges();
         }
         public void Delete(int id)
         {
-            _db.Users.Remove(Get(id));
+            _db.Projects.Remove(Get(id));
             _db.SaveChanges();
         }
 
-        public ICollection<User> GetAll()
+        public ICollection<Project> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public User GetById(int id)
+        public Project GetById(int id)
         {
             throw new NotImplementedException();
         }
