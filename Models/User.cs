@@ -1,13 +1,35 @@
-﻿namespace Orange_Portfolio_BackEnd.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Orange_Portfolio_BackEnd.Models
 {
     public class User
     {
+        [Key]
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(45)]
         public string Name { get; set; }
+
+        [Required]
+        [StringLength(45)]
         public string LastName { get; set; }
+
+        [Required]
+        [StringLength(60)]
         public string Email { get; set; }
+
+        [Required]
+        [StringLength(45)]
         public string Password { get; set; }
+
+        [Required]
+        [MaxLength(255)]
+        [DataType(DataType.Upload)]
         public string Avatar { get; set; }
+
+        [Required]
+        [StringLength(45)]
         public string Nation { get; set; }
 
         public ICollection<Project> Projects { get; set; }
