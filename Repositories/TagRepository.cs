@@ -13,14 +13,16 @@ namespace Orange_Portfolio_BackEnd.Repositories
             _db = db;
         }
 
-        public List<Tag> Get()
+        public ICollection<Tag> GetAll()
         {
             return _db.Tags.ToList();
         }
-        public Tag Get(int id)
+
+        public Tag GetById(int id)
         {
             return _db.Tags.Find(id)!;
         }
+
         public void Add(Tag tag)
         {
             _db.Tags.Add(tag);
@@ -33,18 +35,8 @@ namespace Orange_Portfolio_BackEnd.Repositories
         }
         public void Delete(int id)
         {
-            _db.Tags.Remove(Get(id));
+            _db.Tags.Remove(GetById(id));
             _db.SaveChanges();
-        }
-
-        public ICollection<Tag> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Tag GetById(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

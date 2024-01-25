@@ -23,7 +23,7 @@ namespace Orange_Portfolio_BackEnd.Models
         [Required]
         [MaxLength(255)]
         [DataType(DataType.Upload)]
-        public string image { get; set; }
+        public string Image { get; set; }
 
         [DataType(DataType.Date)]
         public DateOnly UploadDate { get; set; }

@@ -13,21 +13,21 @@ namespace Orange_Portfolio_BackEnd
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
-            // 
+            // Dependency injection repositories
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+            builder.Services.AddScoped<ITagRepository, TagRepository>();
 
             builder.Services.AddControllers();
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            // Configuring Swagger/OpenAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Configuração para conexão com o banco de dados.
+            // Configuration for connecting to the database.
             builder.Services.AddDbContext<Context>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("OrangePortfolioDb"))
             );
-
 
             var app = builder.Build();
 
@@ -41,7 +41,6 @@ namespace Orange_Portfolio_BackEnd
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

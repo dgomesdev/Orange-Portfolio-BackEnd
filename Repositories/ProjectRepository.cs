@@ -13,14 +13,16 @@ namespace Orange_Portfolio_BackEnd.Repositories
             _db = db;
         }
 
-        public List<Project> Get()
+        public ICollection<Project> GetAll()
         {
             return _db.Projects.ToList();
         }
-        public Project Get(int id)
+
+        public Project GetById(int id)
         {
             return _db.Projects.Find(id)!;
         }
+
         public void Add(Project project)
         {
             _db.Projects.Add(project);
@@ -33,18 +35,8 @@ namespace Orange_Portfolio_BackEnd.Repositories
         }
         public void Delete(int id)
         {
-            _db.Projects.Remove(Get(id));
+            _db.Projects.Remove(GetById(id));
             _db.SaveChanges();
-        }
-
-        public ICollection<Project> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Project GetById(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }
