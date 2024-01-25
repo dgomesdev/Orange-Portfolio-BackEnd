@@ -8,7 +8,7 @@ namespace Orange_Portfolio_BackEnd.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "O campo Image é obrigatório.")]
+        [Required]
         [StringLength(45)]
         public string Title { get; set; }
 
