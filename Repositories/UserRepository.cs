@@ -13,14 +13,16 @@ namespace Orange_Portfolio_BackEnd.Repositories
             _db = db;
         }
 
-        public List<User> Get()
+        public ICollection<User> GetAll()
         {
             return _db.Users.ToList();
         }
-        public User Get(int id)
+
+        public User GetById(int id)
         {
             return _db.Users.Find(id)!;
         }
+
         public void Add(User user)
         {
             _db.Users.Add(user);
@@ -33,18 +35,8 @@ namespace Orange_Portfolio_BackEnd.Repositories
         }
         public void Delete(int id)
         {
-            _db.Users.Remove(Get(id));
+            _db.Users.Remove(GetById(id));
             _db.SaveChanges();
-        }
-
-        public ICollection<User> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public User GetById(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

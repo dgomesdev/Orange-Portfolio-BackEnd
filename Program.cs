@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Orange_Portfolio_BackEnd.Data;
 using Orange_Portfolio_BackEnd.Models.Interfaces;
 using Orange_Portfolio_BackEnd.Repositories;
@@ -11,6 +12,9 @@ namespace Orange_Portfolio_BackEnd
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Configuration to use a file with the connection string
+            builder.Configuration.AddJsonFile("config.json", optional: false, reloadOnChange: true);
 
             // Add services to the container.
             // Dependency injection repositories
