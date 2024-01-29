@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Orange_Portfolio_BackEnd.Models
 {
@@ -31,9 +32,20 @@ namespace Orange_Portfolio_BackEnd.Models
         [Required]
         [ForeignKey("User")]
         public int UserId { get; set; }
+
+        [JsonIgnore]
         public User User { get; set; }
 
         [InverseProperty("Projects")]
         public ICollection<Tag> Tags { get; set; }
+
+        public Project(string title, string link, string description, string image, DateOnly uploadDate)
+        {
+            Title = title;
+            Link = link;
+            Description = description;
+            Image = image;
+            UploadDate = uploadDate;
+        }
     }
 }
