@@ -1,4 +1,5 @@
-﻿using Orange_Portfolio_BackEnd.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Orange_Portfolio_BackEnd.Data;
 using Orange_Portfolio_BackEnd.Models;
 using Orange_Portfolio_BackEnd.Models.Interfaces;
 
@@ -13,30 +14,35 @@ namespace Orange_Portfolio_BackEnd.Repositories
             _db = db;
         }
 
-        public ICollection<User> GetAll()
+        public async Task<ICollection<User>> GetAll()
         {
-            return _db.Users.ToList();
+            return await _db.Users.ToListAsync();
         }
 
-        public User GetById(int id)
+        public async Task<User> GetById(int id)
         {
-            return _db.Users.Find(id)!;
+            return await _db.Users.FindAsync(id)!;
         }
 
-        public void Add(User user)
+        public async Task Add(User user)
         {
-            _db.Users.Add(user);
-            _db.SaveChanges();
+            await _db.Users.AddAsync(user);
+            await _db.SaveChangesAsync();
         }
-        public void Update(User user)
+        public async Task Update(User user)
         {
             _db.Users.Update(user);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _db.Users.Remove(GetById(id));
-            _db.SaveChanges();
+            _db.Users.Remove(await GetById(id));
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task<User> GetByEmail(string email)
+        {
+            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

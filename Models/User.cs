@@ -20,18 +20,25 @@ namespace Orange_Portfolio_BackEnd.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(45)]
+        [StringLength(90)]
         public string Password { get; set; }
 
-        [Required]
         [MaxLength(255)]
         [DataType(DataType.Upload)]
-        public string Avatar { get; set; }
+        public string? Avatar { get; set; }
 
-        [Required]
         [StringLength(45)]
-        public string Nation { get; set; }
+        public string? Nation { get; set; }
 
         public ICollection<Project> Projects { get; set; }
+
+        public User(string name, string lastName, string email, string password)
+        {
+            Name = name;
+            LastName = lastName;
+            Email = email;
+            Password = password;
+            Projects = new List<Project>();
+        }
     }
 }

@@ -2,10 +2,11 @@
 {
     public interface IUserRepository
     {
-        ICollection<User> GetAll();
-        User GetById(int id);
-        void Add(User user);
-        void Update(User user);
-        void Delete(int id);
+        Task<ICollection<User>>GetAll();
+        Task<User> GetById(int id);
+        Task<User> GetByEmail(string email);
+        Task Add(User user);
+        Task Update(User user);
+        Task Delete(int id);
     }
 }
