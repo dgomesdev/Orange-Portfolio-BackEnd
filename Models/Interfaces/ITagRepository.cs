@@ -2,10 +2,10 @@
 {
     public interface ITagRepository
     {
-        ICollection<Tag> GetAll();
-        Tag GetById(int id);
-        void Add(Tag tag);
-        void Update(Tag tag);
-        void Delete(int id);
+        Task<ICollection<Tag>> GetAll();
+        Task<Tag> GetById(int id);
+        Task Add(Tag tag);
+        Task Update(Tag tag);
+        Task Delete(int id);
     }
 }
