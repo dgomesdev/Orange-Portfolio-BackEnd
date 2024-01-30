@@ -2,10 +2,10 @@
 {
     public interface IProjectRepository
     {
-        ICollection<Project> GetAll();
-        Project GetById(int id);
-        void Add(Project project);
-        void Update(Project project);
-        void Delete(int id);
+        Task<ICollection<Project>> GetAll();
+        Task<Project> GetById(int id);
+        Task Add(Project project);
+        Task Update(Project project);
+        Task Delete(int id);
     }
 }

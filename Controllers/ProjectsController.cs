@@ -16,37 +16,37 @@ namespace Orange_Portfolio_BackEnd.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task <IActionResult> GetAll()
         {
-            var listProjects = _projectRepository.GetAll();
+            var listProjects = await _projectRepository.GetAll();
             return Ok(listProjects);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task <IActionResult> GetById(int id)
         {
-            var project = _projectRepository.GetById(id);
+            var project = await _projectRepository.GetById(id);
             return project == null ? NotFound("Project not found!") : Ok(project);
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] Project project)
+        public async Task <IActionResult> Add([FromBody] Project project)
         {
-            _projectRepository.Add(project);
+            await _projectRepository.Add(project);
             return Ok(project);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update([FromBody] Project project, int id)
+        public async Task<IActionResult> Update([FromBody] Project project, int id)
         {
-            _projectRepository.Update(project);
+            await _projectRepository.Update(project);
             return Ok(project);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _projectRepository.Delete(id);
+            await _projectRepository.Delete(id);
             return Ok();
         }
     }

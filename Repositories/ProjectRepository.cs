@@ -1,4 +1,5 @@
-﻿using Orange_Portfolio_BackEnd.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Orange_Portfolio_BackEnd.Data;
 using Orange_Portfolio_BackEnd.Models;
 using Orange_Portfolio_BackEnd.Models.Interfaces;
 
@@ -13,30 +14,30 @@ namespace Orange_Portfolio_BackEnd.Repositories
             _db = db;
         }
 
-        public ICollection<Project> GetAll()
+        public async Task<ICollection<Project>> GetAll()
         {
-            return _db.Projects.ToList();
+            return await _db.Projects.ToListAsync();
         }
 
-        public Project GetById(int id)
+        public async Task<Project> GetById(int id)
         {
-            return _db.Projects.Find(id)!;
+            return await _db.Projects.FindAsync(id)!;
         }
 
-        public void Add(Project project)
+        public async Task Add(Project project)
         {
-            _db.Projects.Add(project);
-            _db.SaveChanges();
+            await _db.Projects.AddAsync(project);
+            await _db.SaveChangesAsync();
         }
-        public void Update(Project project)
+        public async Task Update(Project project)
         {
             _db.Projects.Update(project);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _db.Projects.Remove(GetById(id));
-            _db.SaveChanges();
+            _db.Projects.Remove(await GetById(id));
+            await _db.SaveChangesAsync();
         }
     }
 }
