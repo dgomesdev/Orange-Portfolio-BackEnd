@@ -23,7 +23,9 @@ namespace Orange_Portfolio_BackEnd.Controllers
         [HttpGet]
         public async Task <IActionResult> GetAll()
         {
-            var listProjects = await _projectRepository.GetAll();
+            var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
+            var listProjects = await _projectRepository.GetAllExceptUserProjects(userId);
+
             return Ok(listProjects);
         }
 

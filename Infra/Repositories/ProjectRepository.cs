@@ -25,6 +25,15 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
             return await _db.Projects.FindAsync(id)!;
         }
 
+        public async Task<List<Project>> GetAllExceptUserProjects(int userId)
+        {
+            var projectsExceptUser = await _db.Projects
+                .Where(p => p.UserId != userId)
+                .ToListAsync();
+
+            return projectsExceptUser;
+        }
+
         public async Task Add(ProjectViewModel viewModel, int idUser)
         {
             var projeto = new Project
