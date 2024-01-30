@@ -1,10 +1,10 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Orange_Portfolio_BackEnd.Models;
+using Orange_Portfolio_BackEnd.Domain.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Orange_Portfolio_BackEnd.Services
+namespace Orange_Portfolio_BackEnd.Application.Services
 {
     public class TokenService
     {
@@ -26,7 +26,7 @@ namespace Orange_Portfolio_BackEnd.Services
             var key = Encoding.ASCII.GetBytes(Secret);
             var tokenConfig = new SecurityTokenDescriptor
             {
-                Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim("userId", user.Id.ToString())
                 }),

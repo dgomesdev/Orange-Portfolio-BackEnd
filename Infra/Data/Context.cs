@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Orange_Portfolio_BackEnd.Models;
+using Orange_Portfolio_BackEnd.Domain.Models;
 
-namespace Orange_Portfolio_BackEnd.Data
+namespace Orange_Portfolio_BackEnd.Infra.Data
 {
     public class Context : DbContext
     {

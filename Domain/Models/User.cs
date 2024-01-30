@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Orange_Portfolio_BackEnd.Models
+namespace Orange_Portfolio_BackEnd.Domain.Models
 {
     public class User
     {

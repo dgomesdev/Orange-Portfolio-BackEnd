@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Orange_Portfolio_BackEnd.Models
+namespace Orange_Portfolio_BackEnd.Domain.Models
 {
     public class Project
     {
@@ -20,7 +20,7 @@ namespace Orange_Portfolio_BackEnd.Models
         [DataType(DataType.MultilineText)]
         public string? Description { get; set; }
 
-        
+
         [Required]
         [MaxLength(255)]
         [DataType(DataType.Upload)]
@@ -39,15 +39,14 @@ namespace Orange_Portfolio_BackEnd.Models
         [InverseProperty("Projects")]
         public ICollection<Tag> Tags { get; set; }
 
-        public Project(string title, string link, string description, string image, DateOnly uploadDate, int userId, ICollection<Tag> tags)
+        public Project(string title, string link, string description, string image)
         {
             Title = title;
             Link = link;
             Description = description;
             Image = image;
-            UploadDate = uploadDate;
-            UserId = userId;
-            Tags = tags;
+            UploadDate = DateOnly.FromDateTime(DateTime.Today);
+            Tags = new List<Tag>();
         }
     }
 }

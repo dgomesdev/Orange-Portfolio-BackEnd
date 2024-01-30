@@ -1,4 +1,4 @@
-﻿namespace Orange_Portfolio_BackEnd.Services
+﻿namespace Orange_Portfolio_BackEnd.Application.Services
 {
     public class CryptographyService
     {

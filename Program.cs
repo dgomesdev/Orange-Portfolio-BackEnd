@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Orange_Portfolio_BackEnd.Data;
-using Orange_Portfolio_BackEnd.Models.Interfaces;
-using Orange_Portfolio_BackEnd.Repositories;
-using Orange_Portfolio_BackEnd.Services;
+using Orange_Portfolio_BackEnd.Application.Mapping;
+using Orange_Portfolio_BackEnd.Application.Services;
+using Orange_Portfolio_BackEnd.Domain.Models.Interfaces;
+using Orange_Portfolio_BackEnd.Infra.Data;
+using Orange_Portfolio_BackEnd.Infra.Repositories;
 using System.Text;
 
 namespace Orange_Portfolio_BackEnd
@@ -28,6 +29,9 @@ namespace Orange_Portfolio_BackEnd
 
             // Dependency injection services
             builder.Services.AddScoped<TokenService>();
+
+            // Dependency injection AutoMapper
+            builder.Services.AddAutoMapper(typeof(DomainToDTOMapping));
 
             builder.Services.AddControllers();
 

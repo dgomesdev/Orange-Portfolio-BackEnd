@@ -1,4 +1,6 @@
-﻿namespace Orange_Portfolio_BackEnd.Models.Interfaces
+﻿using Orange_Portfolio_BackEnd.Domain.Models;
+
+namespace Orange_Portfolio_BackEnd.Domain.Models.Interfaces
 {
     public interface ITagRepository
     {

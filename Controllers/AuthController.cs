@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Orange_Portfolio_BackEnd.Models;
-using Orange_Portfolio_BackEnd.Models.Interfaces;
-using Orange_Portfolio_BackEnd.Services;
-using Orange_Portfolio_BackEnd.ViewModel;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Orange_Portfolio_BackEnd.Application.Services;
+using Orange_Portfolio_BackEnd.Application.ViewModel;
+using Orange_Portfolio_BackEnd.Domain.DTOs;
+using Orange_Portfolio_BackEnd.Domain.Models;
+using Orange_Portfolio_BackEnd.Domain.Models.Interfaces;
 
 namespace Orange_Portfolio_BackEnd.Controllers
 {
@@ -12,11 +14,13 @@ namespace Orange_Portfolio_BackEnd.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly TokenService _tokenService;
+        private readonly IMapper _mapper;
 
-        public AuthController(IUserRepository userRepository, TokenService tokenService)
+        public AuthController(IUserRepository userRepository, TokenService tokenService, IMapper mapper)
         {
             _userRepository = userRepository;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
@@ -68,9 +72,11 @@ namespace Orange_Portfolio_BackEnd.Controllers
             if (CryptographyService.Verify(model.Password, user.Password))
             {
                 var token = _tokenService.GenerateToken(user);
+                var userDTO = _mapper.Map<UserDTO>(user);
+
                 object response = new
                 {
-                    User = user,
+                    User = userDTO,
                     Token = token
                 };
 

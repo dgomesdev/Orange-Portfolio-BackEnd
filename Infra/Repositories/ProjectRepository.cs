@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Orange_Portfolio_BackEnd.Data;
-using Orange_Portfolio_BackEnd.Models;
-using Orange_Portfolio_BackEnd.Models.Interfaces;
+using Orange_Portfolio_BackEnd.Domain.Models;
+using Orange_Portfolio_BackEnd.Domain.Models.Interfaces;
+using Orange_Portfolio_BackEnd.Infra.Data;
 
-namespace Orange_Portfolio_BackEnd.Repositories
+namespace Orange_Portfolio_BackEnd.Infra.Repositories
 {
-    public class ProjectRepository : IProjectRepository 
+    public class ProjectRepository : IProjectRepository
     {
         private readonly Context _db;
 

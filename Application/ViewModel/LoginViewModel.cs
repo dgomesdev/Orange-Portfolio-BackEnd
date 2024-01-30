@@ -1,4 +1,4 @@
-﻿namespace Orange_Portfolio_BackEnd.ViewModel
+﻿namespace Orange_Portfolio_BackEnd.Application.ViewModel
 {
     public class LoginViewModel
     {
