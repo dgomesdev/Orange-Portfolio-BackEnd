@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Orange_Portfolio_BackEnd.Models;
 using Orange_Portfolio_BackEnd.Models.Interfaces;
+using Orange_Portfolio_BackEnd.ViewModel;
 
 namespace Orange_Portfolio_BackEnd.Controllers
 {
@@ -30,10 +31,20 @@ namespace Orange_Portfolio_BackEnd.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> Add([FromBody] Project project)
+        public async Task <IActionResult> Add([FromBody] ProjectViewModel model)
         {
-            await _projectRepository.Add(project);
-            return Ok(project);
+            var newProject = new Project
+                (
+                model.Title,
+                model.Link,
+                model.Description,
+                model.Image,
+                model.UploadDate,
+                model.UserId,
+                model.Tags
+            );
+            await _projectRepository.Add(newProject);
+            return Ok(newProject);
         }
 
         [HttpPut("{id}")]

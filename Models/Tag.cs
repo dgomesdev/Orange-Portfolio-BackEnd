@@ -6,6 +6,7 @@ namespace Orange_Portfolio_BackEnd.Models
 {
     public class Tag
     {
+        [JsonIgnore]
         [Key]
         public int Id { get; set; }
 

@@ -39,13 +39,15 @@ namespace Orange_Portfolio_BackEnd.Models
         [InverseProperty("Projects")]
         public ICollection<Tag> Tags { get; set; }
 
-        public Project(string title, string link, string description, string image, DateOnly uploadDate)
+        public Project(string title, string link, string description, string image, DateOnly uploadDate, int userId, ICollection<Tag> tags)
         {
             Title = title;
             Link = link;
             Description = description;
             Image = image;
             UploadDate = uploadDate;
+            UserId = userId;
+            Tags = tags;
         }
     }
 }
