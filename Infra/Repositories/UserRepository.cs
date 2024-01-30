@@ -42,7 +42,11 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
 
         public async Task<User> GetByEmail(string email)
         {
-            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _db.Users
+                .Include(u => u.Projects)
+                .ThenInclude(p => p.ProjectsTags)
+                .ThenInclude(pt => pt.Tag)
+                .FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

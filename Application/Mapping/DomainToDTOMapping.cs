@@ -9,6 +9,8 @@ namespace Orange_Portfolio_BackEnd.Application.Mapping
         public DomainToDTOMapping()
         {
             CreateMap<User, UserDTO>();
+            CreateMap<Project, ProjectDTO>();
+            CreateMap<ProjectTag, ProjectTagDTO>();
         }
     }
 }

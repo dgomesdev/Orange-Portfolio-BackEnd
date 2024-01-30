@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Orange_Portfolio_BackEnd.Application.Services;
 using Orange_Portfolio_BackEnd.Application.ViewModel;
 using Orange_Portfolio_BackEnd.Domain.Models;
 using Orange_Portfolio_BackEnd.Domain.Models.Interfaces;
@@ -10,10 +12,12 @@ namespace Orange_Portfolio_BackEnd.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly TokenService _tokenService;
 
-        public ProjectsController(IProjectRepository projectRepository)
+        public ProjectsController(IProjectRepository projectRepository, TokenService tokenService)
         {
             _projectRepository = projectRepository;
+            _tokenService = tokenService;
         }
 
         [HttpGet]
@@ -30,18 +34,13 @@ namespace Orange_Portfolio_BackEnd.Controllers
             return project == null ? NotFound("Project not found!") : Ok(project);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task <IActionResult> Add([FromBody] ProjectViewModel model)
         {
-            var newProject = new Project
-            (
-                model.Title,
-                model.Link,
-                model.Description,
-                model.Image
-            );
-            await _projectRepository.Add(newProject);
-            return Ok(newProject);
+            var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
+            await _projectRepository.Add(model, userId);
+            return Ok(model);
         }
 
         [HttpPut("{id}")]

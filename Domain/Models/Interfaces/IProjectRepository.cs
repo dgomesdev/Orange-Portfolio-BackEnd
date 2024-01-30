@@ -1,4 +1,4 @@
-﻿using Orange_Portfolio_BackEnd.Domain.Models;
+﻿using Orange_Portfolio_BackEnd.Application.ViewModel;
 
 namespace Orange_Portfolio_BackEnd.Domain.Models.Interfaces
 {
@@ -6,7 +6,7 @@ namespace Orange_Portfolio_BackEnd.Domain.Models.Interfaces
     {
         Task<ICollection<Project>> GetAll();
         Task<Project> GetById(int id);
-        Task Add(Project project);
+        Task Add(ProjectViewModel model, int idUser);
         Task Update(Project project);
         Task Delete(int id);
     }

@@ -15,12 +15,6 @@ namespace Orange_Portfolio_BackEnd.Domain.Models
         public string Name { get; set; }
 
         [JsonIgnore]
-        [InverseProperty("Tags")]
-        public ICollection<Project> Projects { get; set; }
-
-        public Tag(string name)
-        {
-            Name = name;
-        }
+        public ICollection<ProjectTag> ProjectsTags { get; set; }
     }
 }

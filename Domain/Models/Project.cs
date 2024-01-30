@@ -36,17 +36,7 @@ namespace Orange_Portfolio_BackEnd.Domain.Models
         [JsonIgnore]
         public User User { get; set; }
 
-        [InverseProperty("Projects")]
-        public ICollection<Tag> Tags { get; set; }
-
-        public Project(string title, string link, string description, string image)
-        {
-            Title = title;
-            Link = link;
-            Description = description;
-            Image = image;
-            UploadDate = DateOnly.FromDateTime(DateTime.Today);
-            Tags = new List<Tag>();
-        }
+        [JsonIgnore]
+        public ICollection<ProjectTag> ProjectsTags { get; set; }
     }
 }
