@@ -45,11 +45,14 @@ namespace Orange_Portfolio_BackEnd.Controllers
             return Ok(model);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] Project project, int id)
+        public async Task<IActionResult> Update([FromBody] ProjectViewModel updatedProject, int id)
         {
-            await _projectRepository.Update(project);
-            return Ok(project);
+            var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
+            await _projectRepository.Update(updatedProject, userId);
+
+            return Ok(updatedProject);
         }
 
         [Authorize]

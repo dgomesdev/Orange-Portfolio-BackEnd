@@ -64,11 +64,51 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
             _db.Projects.Add(projeto);
             await _db.SaveChangesAsync();
         }
-        public async Task Update(Project project)
+        public async Task Update(ProjectViewModel updatedProject, int userId)
         {
-            _db.Projects.Update(project);
-            await _db.SaveChangesAsync();
+            var existingProject = await GetById(updatedProject.Id);
+
+            if (existingProject != null && existingProject.UserId == userId)
+            {
+                existingProject.Title = updatedProject.Title;
+                existingProject.Link = updatedProject.Link;
+                existingProject.Description = updatedProject.Description;
+                existingProject.Image = updatedProject.Image;
+
+                if (updatedProject.Tags != null)
+                {
+                    UpdateProjectTags(existingProject, updatedProject.Tags);
+                }
+
+                await _db.SaveChangesAsync();
+            }
+            else
+            {   // Projeto não encontrado ou não pertence ao usuário autenticado
+                throw new InvalidOperationException("Project not found or does not belong to the authenticated user.");
+            }
         }
+
+        private void UpdateProjectTags(Project existingProject, ICollection<TagViewModel> updatedTags)
+        {
+            if (existingProject != null && existingProject.ProjectsTags != null)
+            {
+                existingProject.ProjectsTags.Clear();
+
+                foreach (var updatedTag in updatedTags)
+                {
+                    var existingTag = _db.Tags.FirstOrDefault(t => t.Name == updatedTag.Name);
+
+                    if (existingTag == null)
+                    {
+                        existingTag = new Tag { Name = updatedTag.Name };
+                        _db.Tags.Add(existingTag);
+                    }
+
+                    existingProject.ProjectsTags.Add(new ProjectTag { Tag = existingTag });
+                }
+            }
+        }
+
         public async Task Delete(int id, int userId)
         {
             var projectToDelete = await GetById(id);
@@ -79,7 +119,7 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
                 await _db.SaveChangesAsync();
             }
             else
-            {
+            {   // Projeto não encontrado ou não pertence ao usuário autenticado
                 throw new InvalidOperationException("Project not found or does not belong to the authenticated user.");
             }
         }
