@@ -8,6 +8,5 @@ namespace Orange_Portfolio_BackEnd.Domain.DTOs
         public string LastName { get; set; }
         public string? Avatar { get; set; }
         public string? Nation { get; set; }
-        public ICollection<ProjectDTO> Projects { get; set; }
     }
 }

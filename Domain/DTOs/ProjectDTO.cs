@@ -1,6 +1,4 @@
-﻿using Orange_Portfolio_BackEnd.Domain.Models;
-
-namespace Orange_Portfolio_BackEnd.Domain.DTOs
+﻿namespace Orange_Portfolio_BackEnd.Domain.DTOs
 {
     public class ProjectDTO
     {
@@ -10,6 +8,7 @@ namespace Orange_Portfolio_BackEnd.Domain.DTOs
         public string? Description { get; set; }
         public string Image { get; set; }
         public DateOnly UploadDate { get; set; }
+        public string Author { get; set; }
         public ICollection<ProjectTagDTO> ProjectsTags { get; set; }
     }
 }

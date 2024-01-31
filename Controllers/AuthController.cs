@@ -50,7 +50,7 @@ namespace Orange_Portfolio_BackEnd.Controllers
 
             await _userRepository.Add(newUser);
 
-            return Ok(newUser);
+            return Ok();
         }
 
         [HttpPost("login")]

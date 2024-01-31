@@ -15,19 +15,34 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
             _db = db;
         }
 
-        public async Task<ICollection<Project>> GetAll()
+        public async Task<ICollection<Project>> GetMyProjects(int userId)
         {
-            return await _db.Projects.ToListAsync();
+            var projects = await _db.Projects
+                .Include(up => up.User)
+                .Include(p => p.ProjectsTags)
+                .ThenInclude(pt => pt.Tag)
+                .Where(p => p.UserId == userId)
+                .ToListAsync();
+
+            return projects;
         }
 
         public async Task<Project> GetById(int id)
         {
-            return await _db.Projects.FindAsync(id)!;
+            return await _db.Projects
+                .Include(up => up.User)
+                .Include(p => p.ProjectsTags)
+                .ThenInclude(pt => pt.Tag)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
+
 
         public async Task<List<Project>> GetAllExceptUserProjects(int userId)
         {
             var projectsExceptUser = await _db.Projects
+                .Include(up => up.User)
+                .Include(p => p.ProjectsTags)
+                .ThenInclude(pt => pt.Tag)
                 .Where(p => p.UserId != userId)
                 .ToListAsync();
 
@@ -64,9 +79,9 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
             _db.Projects.Add(projeto);
             await _db.SaveChangesAsync();
         }
-        public async Task Update(ProjectViewModel updatedProject, int userId)
+        public async Task Update(int idProject, ProjectViewModel updatedProject, int userId)
         {
-            var existingProject = await GetById(updatedProject.Id);
+            var existingProject = await GetById(idProject);
 
             if (existingProject != null && existingProject.UserId == userId)
             {
