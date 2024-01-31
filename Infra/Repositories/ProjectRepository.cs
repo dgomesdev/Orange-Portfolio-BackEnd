@@ -48,6 +48,12 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
 
             return projectsExceptUser;
         }
+        public async Task<ICollection<Project>> GetByTags(List<string> tagNames)
+        {
+            return await _db.Projects
+                .Where(p => p.ProjectsTags.Any(pt => tagNames.Contains(pt.Tag.Name)))
+                .ToListAsync();
+        }
 
         public async Task Add(ProjectViewModel viewModel, int idUser)
         {
@@ -138,5 +144,6 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
                 throw new InvalidOperationException("Project not found or does not belong to the authenticated user.");
             }
         }
+
     }
 }

@@ -45,7 +45,20 @@ namespace Orange_Portfolio_BackEnd.Controllers
             return Ok(projectDtos);
         }
 
-        
+        [HttpGet("tags")]
+        public async Task<IActionResult> GetByTags([FromQuery] List<string> tagNames)
+        {
+            var projects = await _projectRepository.GetByTags(tagNames);
+
+            if (projects.Count == 0)
+            {
+                return NotFound("No projects found with the specified tags.");
+            }
+
+            return Ok(projects);
+        }
+
+
         [HttpGet("{id}")]
         public async Task <IActionResult> GetById(int id)
         {
