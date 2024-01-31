@@ -52,10 +52,13 @@ namespace Orange_Portfolio_BackEnd.Controllers
             return Ok(project);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _projectRepository.Delete(id);
+            var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
+            await _projectRepository.Delete(id, userId);
+
             return Ok();
         }
     }

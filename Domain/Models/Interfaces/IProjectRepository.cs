@@ -9,6 +9,6 @@ namespace Orange_Portfolio_BackEnd.Domain.Models.Interfaces
         Task<List<Project>> GetAllExceptUserProjects(int userId);
         Task Add(ProjectViewModel model, int idUser);
         Task Update(Project project);
-        Task Delete(int id);
+        Task Delete(int id, int userId);
     }
 }

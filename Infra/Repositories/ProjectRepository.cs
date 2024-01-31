@@ -69,10 +69,19 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
             _db.Projects.Update(project);
             await _db.SaveChangesAsync();
         }
-        public async Task Delete(int id)
+        public async Task Delete(int id, int userId)
         {
-            _db.Projects.Remove(await GetById(id));
-            await _db.SaveChangesAsync();
+            var projectToDelete = await GetById(id);
+
+            if (projectToDelete != null && projectToDelete.UserId == userId)
+            {
+                _db.Projects.Remove(projectToDelete);
+                await _db.SaveChangesAsync();
+            }
+            else
+            {
+                throw new InvalidOperationException("Project not found or does not belong to the authenticated user.");
+            }
         }
     }
 }
