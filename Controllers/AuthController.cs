@@ -26,11 +26,7 @@ namespace Orange_Portfolio_BackEnd.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(model);
-            }
-
+            
             // Check if the email is already in use
             if (await _userRepository.GetByEmail(model.Email) != null)
             {
@@ -56,11 +52,6 @@ namespace Orange_Portfolio_BackEnd.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(model);
-            }
 
             var user = await _userRepository.GetByEmail(model.Email);
 

@@ -1,10 +1,13 @@
 
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Orange_Portfolio_BackEnd.Application.Mapping;
 using Orange_Portfolio_BackEnd.Application.Services;
+using Orange_Portfolio_BackEnd.Application.Validators;
 using Orange_Portfolio_BackEnd.Domain.Models.Interfaces;
 using Orange_Portfolio_BackEnd.Infra.Data;
 using Orange_Portfolio_BackEnd.Infra.Repositories;
@@ -20,6 +23,11 @@ namespace Orange_Portfolio_BackEnd
 
             // Configuration to use a file with the connection string
             builder.Configuration.AddJsonFile("config.json", optional: false, reloadOnChange: true);
+
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateUserValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<LoginUserValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateProjectValidator>();
+            builder.Services.AddFluentValidationAutoValidation();
 
             // Add services to the container.
             // Dependency injection repositories
