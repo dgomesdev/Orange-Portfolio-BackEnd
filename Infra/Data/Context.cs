@@ -16,11 +16,11 @@ namespace Orange_Portfolio_BackEnd.Infra.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configuração da chave primária composta para a classe de junção ProjetoTag
+            // Configuring the composite primary key for the ProjectTag join class
             modelBuilder.Entity<ProjectTag>()
                 .HasKey(pt => new { pt.ProjectId, pt.TagId });
 
-            // Configuração das relações Many-to-Many
+            // Configuring Many-to-Many Relationships
             modelBuilder.Entity<ProjectTag>()
                 .HasOne(pt => pt.Project)
                 .WithMany(p => p.ProjectsTags)

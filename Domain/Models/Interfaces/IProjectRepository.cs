@@ -7,7 +7,8 @@ namespace Orange_Portfolio_BackEnd.Domain.Models.Interfaces
         Task<ICollection<Project>> GetMyProjects(int userId);
         Task<Project> GetById(int id);
         Task<List<Project>> GetAllExceptUserProjects(int userId);
-        Task<ICollection<Project>> GetByTags(List<string> tagNames);
+        Task<ICollection<Project>> GetByTags(List<string> tagNames, int userId);
+        Task<ICollection<Project>> GetByTagsMyProjects(List<string> tagNames, int userId);
         Task Add(ProjectViewModel model, int idUser);
         Task Update(int idProject, ProjectViewModel updatedProject, int userId);
         Task Delete(int id, int userId);

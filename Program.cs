@@ -11,6 +11,7 @@ using Orange_Portfolio_BackEnd.Application.Validators;
 using Orange_Portfolio_BackEnd.Domain.Models.Interfaces;
 using Orange_Portfolio_BackEnd.Infra.Data;
 using Orange_Portfolio_BackEnd.Infra.Repositories;
+using Orange_Portfolio_BackEnd.Infra.Storage;
 using System.Text;
 
 namespace Orange_Portfolio_BackEnd
@@ -28,6 +29,8 @@ namespace Orange_Portfolio_BackEnd
             builder.Services.AddValidatorsFromAssemblyContaining<LoginUserValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateProjectValidator>();
             builder.Services.AddFluentValidationAutoValidation();
+
+            builder.Services.AddScoped<IBlob, Blob>();
 
             // Add services to the container.
             // Dependency injection repositories
@@ -96,17 +99,15 @@ namespace Orange_Portfolio_BackEnd
 
             // Configuration for connecting to the database.
             builder.Services.AddDbContext<Context>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString("OrangePortfolioDb"))
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("OPAzureDb"))
             );
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            app.UseExceptionHandler("/error");
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 

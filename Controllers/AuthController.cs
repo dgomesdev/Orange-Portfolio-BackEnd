@@ -46,7 +46,7 @@ namespace Orange_Portfolio_BackEnd.Controllers
 
             await _userRepository.Add(newUser);
 
-            return Ok();
+            return StatusCode(201, "User registered successfully!");
         }
 
         [HttpPost("login")]

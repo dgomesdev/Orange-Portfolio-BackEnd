@@ -39,6 +39,7 @@ namespace Orange_Portfolio_BackEnd.Domain.Models
             Email = email;
             Password = password;
             Projects = new List<Project>();
+            Nation = "Brasil";
         }
     }
 }

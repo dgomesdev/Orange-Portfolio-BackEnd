@@ -20,14 +20,23 @@ namespace Orange_Portfolio_BackEnd.Application.Validators
                 .WithMessage("Link supports a maximum of 255 characters");
 
             RuleFor(p => p.Image)
-                .NotEmpty()
-                .WithMessage("Image is required")
-                .MaximumLength(255)
-                .WithMessage("Image supports a maximum of 255 characters");
+            .NotEmpty()
+            .WithMessage("Image is required")
+            .Must(BeAValidImage)
+            .WithMessage("Image must be a JPEG or PNG file");
 
             RuleFor(x => x.Tags)
-                .Must(tags => tags == null || tags.All(tag => !string.IsNullOrWhiteSpace(tag.Name)))
+                .Must(tags => tags == null || tags.All(tag => !string.IsNullOrWhiteSpace(tag)))
                 .WithMessage("Tag name cannot be empty");
+        }
+
+        private bool BeAValidImage(IFormFile image)
+        {
+            if (image == null)
+                return true; // No image provided, validation should pass
+
+            var allowedFormats = new List<string> { "image/jpeg", "image/png" };
+            return allowedFormats.Contains(image.ContentType);
         }
     }
 }

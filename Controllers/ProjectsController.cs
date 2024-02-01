@@ -31,6 +31,7 @@ namespace Orange_Portfolio_BackEnd.Controllers
             var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
             var projects = await _projectRepository.GetAllExceptUserProjects(userId);
             var projectDtos = projects.Select(p => _mapper.Map<ProjectDTO>(p));
+            
             return Ok(projectDtos);
         }
 
@@ -48,14 +49,39 @@ namespace Orange_Portfolio_BackEnd.Controllers
         [HttpGet("tags")]
         public async Task<IActionResult> GetByTags([FromQuery] List<string> tagNames)
         {
-            var projects = await _projectRepository.GetByTags(tagNames);
+            var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
 
-            if (projects.Count == 0)
+            if (tagNames.Count == 0)
             {
-                return NotFound("No projects found with the specified tags.");
+                var projects = await _projectRepository.GetAllExceptUserProjects(userId);
+                var projDtos = projects.Select(p => _mapper.Map<ProjectDTO>(p));
+
+                return Ok(projDtos);
             }
 
-            return Ok(projects);
+            var projectsTags = await _projectRepository.GetByTags(tagNames, userId);
+            var projectDtos = projectsTags.Select(p => _mapper.Map<ProjectDTO>(p));
+
+            return Ok(projectDtos);
+        }
+
+        [HttpGet("myprojects/tags")]
+        public async Task<IActionResult> GetByTagsMyProjects([FromQuery] List<string> tagNames)
+        {
+            var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
+
+            if (tagNames.Count == 0)
+            {
+                var projects = await _projectRepository.GetMyProjects(userId);
+                var projDtos = projects.Select(p => _mapper.Map<ProjectDTO>(p));
+
+                return Ok(projDtos);
+            }
+
+            var projectsTags = await _projectRepository.GetByTagsMyProjects(tagNames, userId);
+            var projectDtos = projectsTags.Select(p => _mapper.Map<ProjectDTO>(p));
+
+            return Ok(projectDtos);
         }
 
 
@@ -70,22 +96,22 @@ namespace Orange_Portfolio_BackEnd.Controllers
 
         
         [HttpPost]
-        public async Task <IActionResult> Add([FromBody] ProjectViewModel model)
+        public async Task <IActionResult> Add([FromForm] ProjectViewModel model)
         {
             var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
             await _projectRepository.Add(model, userId);
 
-            return Ok();
+            return StatusCode(201, "Project registered successfully!");
         }
 
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] ProjectViewModel updatedProject, int id)
+        public async Task<IActionResult> Update([FromForm] ProjectViewModel updatedProject, int id)
         {
             var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
             await _projectRepository.Update(id, updatedProject, userId);
 
-            return Ok();
+            return Ok("Project updated successfully!");
         }
 
         
@@ -95,7 +121,7 @@ namespace Orange_Portfolio_BackEnd.Controllers
             var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
             await _projectRepository.Delete(id, userId);
 
-            return Ok();
+            return Ok("Project removed successfully!");
         }
     }
 }
