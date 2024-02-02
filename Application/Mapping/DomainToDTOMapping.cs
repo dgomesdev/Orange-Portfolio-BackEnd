@@ -10,7 +10,8 @@ namespace Orange_Portfolio_BackEnd.Application.Mapping
         {
             CreateMap<User, UserDTO>();
             CreateMap<Project, ProjectDTO>()
-                .ForMember(dest => dest.Author, m => m.MapFrom(orig => String.Format($"{orig.User.Name} {orig.User.LastName}")));
+                .ForMember(dest => dest.Author, m => m.MapFrom(orig => String.Format($"{orig.User.Name} {orig.User.LastName}")))
+                .ForMember(dest => dest.AvatarAuthor, m => m.MapFrom(orig => orig.User.Avatar));
             CreateMap<ProjectTag, ProjectTagDTO>();
         }
     }

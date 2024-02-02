@@ -32,7 +32,7 @@ namespace Orange_Portfolio_BackEnd.Domain.Models
 
         public ICollection<Project> Projects { get; set; }
 
-        public User(string name, string lastName, string email, string password)
+        public User(string name, string lastName, string email, string password, string avatar)
         {
             Name = name;
             LastName = lastName;
@@ -40,6 +40,7 @@ namespace Orange_Portfolio_BackEnd.Domain.Models
             Password = password;
             Projects = new List<Project>();
             Nation = "Brasil";
+            Avatar = avatar;
         }
     }
 }

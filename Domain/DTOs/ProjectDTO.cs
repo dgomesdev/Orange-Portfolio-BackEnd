@@ -9,6 +9,7 @@
         public string Image { get; set; }
         public DateOnly UploadDate { get; set; }
         public string Author { get; set; }
+        public string AvatarAuthor { get; set; }
         public ICollection<ProjectTagDTO> ProjectsTags { get; set; }
     }
 }

@@ -15,12 +15,14 @@ namespace Orange_Portfolio_BackEnd.Controllers
         private readonly IUserRepository _userRepository;
         private readonly TokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public AuthController(IUserRepository userRepository, TokenService tokenService, IMapper mapper)
+        public AuthController(IUserRepository userRepository, TokenService tokenService, IMapper mapper, IConfiguration configuration)
         {
             _userRepository = userRepository;
             _tokenService = tokenService;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
         [HttpPost("register")]
@@ -35,13 +37,17 @@ namespace Orange_Portfolio_BackEnd.Controllers
 
             var passwordHash = CryptographyService.Encrypt(model.Password);
 
+            var urlImage = _configuration["ProfileImage"] != null 
+                ? _configuration["ProfileImage"] 
+                : null;
             // Create a new user
             var newUser = new User
                 (
                 model.Name,
                 model.LastName,
                 model.Email,
-                passwordHash
+                passwordHash,
+                urlImage
             );
 
             await _userRepository.Add(newUser);
