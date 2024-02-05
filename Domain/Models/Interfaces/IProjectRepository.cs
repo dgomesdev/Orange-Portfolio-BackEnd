@@ -10,7 +10,7 @@ namespace Orange_Portfolio_BackEnd.Domain.Models.Interfaces
         Task<ICollection<Project>> GetByTags(List<string> tagNames, int userId);
         Task<ICollection<Project>> GetByTagsMyProjects(List<string> tagNames, int userId);
         Task Add(ProjectViewModel model, int idUser);
-        Task Update(int idProject, ProjectViewModel updatedProject, int userId);
+        Task Update(int idProject, UpdateProjectViewModel updatedProject, int userId);
         Task Delete(int id, int userId);
     }
 }

@@ -106,7 +106,7 @@ namespace Orange_Portfolio_BackEnd.Controllers
 
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromForm] ProjectViewModel updatedProject, int id)
+        public async Task<IActionResult> Update([FromForm] UpdateProjectViewModel updatedProject, int id)
         {
             var userId = int.Parse(_tokenService.GetIdByToken(HttpContext));
             await _projectRepository.Update(id, updatedProject, userId);

@@ -78,17 +78,6 @@ namespace Orange_Portfolio_BackEnd
                 });
             });
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy(name: "MyPolicy", policy =>
-                {
-                    policy.WithOrigins("http://localhost:5173",
-                        "https://localhost:5173")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-                });
-            });
-
             // Jwt configuration
             var key = Encoding.ASCII.GetBytes(builder.Configuration["SecretKey"]);
             builder.Services.AddAuthentication(x =>
@@ -120,7 +109,11 @@ namespace Orange_Portfolio_BackEnd
             app.UseSwagger();
             app.UseSwaggerUI();
 
-            app.UseCors("MyPolicy");
+            app.UseCors(policy => policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

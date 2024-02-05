@@ -104,7 +104,7 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task Update(int idProject, ProjectViewModel updatedProject, int userId)
+        public async Task Update(int idProject, UpdateProjectViewModel updatedProject, int userId)
         {
             var existingProject = await GetById(idProject);
 
@@ -118,7 +118,11 @@ namespace Orange_Portfolio_BackEnd.Infra.Repositories
                 existingProject.Title = updatedProject.Title;
                 existingProject.Link = updatedProject.Link;
                 existingProject.Description = updatedProject.Description;
-                existingProject.Image = await _blob.Upload(updatedProject.Image);
+
+                if (updatedProject.Image != null)
+                {
+                    existingProject.Image = await _blob.Upload(updatedProject.Image);
+                }
 
                 if (updatedProject.Tags != null)
                 {

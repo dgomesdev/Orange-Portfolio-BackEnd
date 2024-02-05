@@ -20,11 +20,9 @@ namespace Orange_Portfolio_BackEnd.Domain.Models
         [DataType(DataType.MultilineText)]
         public string? Description { get; set; }
 
-
-        [Required]
         [MaxLength(255)]
         [DataType(DataType.Upload)]
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         [DataType(DataType.Date)]
         public DateOnly UploadDate { get; set; }
